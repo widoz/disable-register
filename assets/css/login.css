@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+/**
+ * Hide the Login error container
+ */
+.login.gs-disable-register #login #nav,
+.login.gs-disable-register #login #login_error {
+	display : none;
+}
