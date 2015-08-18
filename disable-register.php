@@ -48,13 +48,6 @@ add_filter( 'shake_error_codes', function () {
 	return array();
 } );
 
-// Add Plugin class to body on login page
-add_filter( 'login_body_class', function ( $classes ) {
-	array_push( $classes, 'gs-disable-register' );
-
-	return $classes;
-} );
-
 // Disable error messages
 add_filter( 'login_errors', function ( $errors ) {
 	$errors = '';
@@ -72,7 +65,6 @@ function gs_login_redirect() {
 	if ( isset( $_REQUEST['action'] ) &&
 	     'login' !== $_REQUEST['action'] &&
 	     'logout' !== $_REQUEST['action'] ) {
-		unset( $_REQUEST['action'] );
 		wp_redirect( site_url( 'wp-login.php' ) );
 	}
 }
