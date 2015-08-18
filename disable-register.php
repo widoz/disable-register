@@ -3,7 +3,7 @@
  * Plugin Name: Disable Register
  * Plugin URI: https://github.com/widoz/disable-register
  * Description: Disable Register
- * Version: 0.0.1
+ * Version: 0.0.2
  * Author: Guido Scialfa
  * Author URI: http://www.guidoscialfa.com
  * License: GPL2
