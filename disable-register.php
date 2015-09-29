@@ -25,7 +25,7 @@
  */
 
 // Disable the user register option
-update_option( 'users_can_register', true ); // @todo Need a check
+update_option( 'users_can_register', 0 );
 
 // Disable site register option
 add_filter( 'wpmu_active_signup', function( $active_signup ) {
