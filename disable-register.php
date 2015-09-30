@@ -3,7 +3,7 @@
  * Plugin Name: Disable Register
  * Plugin URI: https://github.com/widoz/disable-register
  * Description: Disable Register
- * Version: 0.0.2
+ * Version: 0.0.3
  * Author: Guido Scialfa
  * Author URI: http://www.guidoscialfa.com
  * License: GPL2
@@ -24,14 +24,26 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-// Disable the user register option
-update_option( 'users_can_register', 0 );
+add_filter( 'wpmu_active_signup', 'gs_disable_registration' );
+add_filter( 'site_option_registration', 'gs_disable_registration' );
 
-// Disable site register option
-add_filter( 'wpmu_active_signup', function( $active_signup ) {
-	$active_signup = 'none';
-	return $active_signup;
-} );
+add_action( 'login_init', 'gs_login_redirect' );
+add_action( 'plugins_loaded', 'gs_login_redirect' );
+
+// Disable the user register option
+update_option( 'users_can_register', 0 ); // @todo Save the current theme option and restore it on plugin remove
+
+/**
+ * Disable register option
+ *
+ * @since 0.0.3
+ */
+function gs_disable_registration( $status ) {
+
+	$status = 'none';
+
+	return $status;
+}
 
 // Clean resetpass action
 if ( isset( $_GET['key'] ) ) {
@@ -40,50 +52,61 @@ if ( isset( $_GET['key'] ) ) {
 
 // @todo Check why the style is not enqueue in head tag
 add_action( 'login_enqueue_scripts', function () {
+
 	wp_enqueue_style( 'gs-disable-register', plugin_dir_url( __FILE__ ) . 'assets/css/login.css', false );
 } );
 
-// Don't shake for errors
+/**
+ * Don't shake for errors
+ *
+ * @since 0.0.1
+ */
 add_filter( 'shake_error_codes', function () {
-	return array();
+
+	return [ ];
 } );
 
-// Disable error messages
+/**
+ * Disable error messages
+ *
+ * @since 0.0.1
+ */
 add_filter( 'login_errors', function ( $errors ) {
+
 	$errors = '';
+
 	return $errors;
 } );
 
-// Disable password reset
-add_action( 'allow_password_reset', function ( $allow ) {
-	$allow = false;
-	return $allow;
+/**
+ * Set the sign up location to wp-login.php
+ *
+ * @since 0.0.1
+ */
+add_filter( 'wp_signup_location', function ( $url ) {
+
+	$url = site_url( 'wp-login.php' );
+
+	return $url;
 } );
 
+/**
+ * Redirect to the login page if the request action is different than login or logout
+ * or in case the current page is wp-signup.php
+ *
+ * @since 0.0.1
+ */
 function gs_login_redirect() {
-	// Redirect non login actions to 404
-	if ( isset( $_REQUEST['action'] ) &&
-	     'login' !== $_REQUEST['action'] &&
-	     'logout' !== $_REQUEST['action'] ) {
+
+	global $pagenow;
+
+	$_url = site_url( 'wp-login.php' );
+
+	if ( 'wp-signup.php' == $pagenow ) {
+		wp_redirect( $_url );
+		exit;
+	} else if ( isset( $_REQUEST['action'] ) && 'login' !== $_REQUEST['action'] && 'logout' !== $_REQUEST['action'] ) {
 		wp_redirect( site_url( 'wp-login.php' ) );
+		exit;
 	}
 }
-add_action( 'login_init', 'gs_login_redirect' );
-add_filter( 'wp_signup_location', 'gs_login_redirect' );
-
-// Redirect non login actions to 404
-function gs_404_redirect( $redirect = '' ) {
-	global $wp_query;
-
-	$wp_query->set_404();
-	status_header( 404 );
-
-	get_template_part( '404' );
-
-	exit();
-}
-
-// Just in case
-add_action( 'lostpassword_post', 'gs_404_redirect' );
-// Redirect for signup form in multisite
-add_action( 'before_signup_form', 'gs_404_redirect' );

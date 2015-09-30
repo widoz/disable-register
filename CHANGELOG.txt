@@ -1,0 +1,5 @@
+= 0.0.2 - Aug 18, 2015 =
+- Remove body class .gs-disable-register to prevent to show non necessary info about the use of the plugin.
+
+= 0.0.1 - Aug 17, 2015 =
+Initial Version
