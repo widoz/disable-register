@@ -1,3 +1,9 @@
+= 0.0.3 - Sep 30, 2015 =
+- Introduce CHANGELOG.txt
+- Remove 404 login redirect.
+- Remove some unneeded filters.
+- Redirect to the login page if the wp-signup.php script is called.
+
 = 0.0.2 - Aug 18, 2015 =
 - Remove body class .gs-disable-register to prevent to show non necessary info about the use of the plugin.
 
