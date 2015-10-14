@@ -28,7 +28,6 @@ add_filter( 'wpmu_active_signup', 'gs_disable_registration' );
 add_filter( 'site_option_registration', 'gs_disable_registration' );
 
 add_action( 'login_init', 'gs_login_redirect' );
-add_action( 'plugins_loaded', 'gs_login_redirect' );
 
 // Disable the user register option
 update_option( 'users_can_register', 0 ); // @todo Save the current theme option and restore it on plugin remove
