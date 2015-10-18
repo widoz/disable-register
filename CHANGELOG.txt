@@ -1,3 +1,8 @@
+= 0.0.4 - Oct 18, 2015 =
+Remove wrong action hook to plugins_loaded, create many issues
+Update Readme
+Update .gitignore
+
 = 0.0.3 - Sep 30, 2015 =
 - Introduce CHANGELOG.txt
 - Remove 404 login redirect.
