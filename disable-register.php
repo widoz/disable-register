@@ -1,11 +1,12 @@
 <?php
-/*
+/**
  * Plugin Name: Disable Register
- * Plugin URI: https://github.com/widoz/disable-register
+ * Plugin URI: https://wordpress.org/plugins/disable-register
  * Description: Disable Register
- * Version: 0.0.4
+ * Version: 1.0.0
  * Author: Guido Scialfa
  * Author URI: http://www.guidoscialfa.com
+ * Text Domain: disable-register
  * License: GPL2
  *
  * Copyright (C) 2015  Guido Scialfa
@@ -24,88 +25,85 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-add_filter( 'wpmu_active_signup', 'gs_disable_registration' );
-add_filter( 'site_option_registration', 'gs_disable_registration' );
+add_filter('wpmu_active_signup', 'gs_disable_registration');
+add_filter('site_option_registration', 'gs_disable_registration');
 
-add_action( 'login_init', 'gs_login_redirect' );
+add_action('login_init', 'gs_login_redirect');
 
-// Disable the user register option
-update_option( 'users_can_register', 0 ); // @todo Save the current theme option and restore it on plugin remove
+// Disable the user register option.
+// @todo Save the current theme option and restore it on plugin remove.
+update_option('users_can_register', 0);
+
+// Clean resetpass action.
+if (isset($_GET['key'])) {
+    $action = 'login';
+}
 
 /**
  * Disable register option
  *
- * @since 0.0.3
+ * @since 1.0.0
  */
-function gs_disable_registration( $status ) {
+function gs_disable_registration($status)
+{
+    $status = 'none';
 
-	$status = 'none';
-
-	return $status;
-}
-
-// Clean resetpass action
-if ( isset( $_GET['key'] ) ) {
-	$action = 'login';
+    return $status;
 }
 
 // @todo Check why the style is not enqueue in head tag
-add_action( 'login_enqueue_scripts', function () {
-
-	wp_enqueue_style( 'gs-disable-register', plugin_dir_url( __FILE__ ) . 'assets/css/login.css', false );
-} );
+add_action('login_enqueue_scripts', function () {
+    wp_enqueue_style('gs-disable-register', plugin_dir_url(__FILE__) . 'assets/css/login.css', false);
+});
 
 /**
  * Don't shake for errors
  *
- * @since 0.0.1
+ * @since 1.0.0
  */
-add_filter( 'shake_error_codes', function () {
-
-	return [ ];
-} );
+add_filter('shake_error_codes', function () {
+    return [];
+});
 
 /**
  * Disable error messages
  *
- * @since 0.0.1
+ * @since 1.0.0
  */
-add_filter( 'login_errors', function ( $errors ) {
+add_filter('login_errors', function ($errors) {
+    $errors = '';
 
-	$errors = '';
-
-	return $errors;
-} );
+    return $errors;
+});
 
 /**
  * Set the sign up location to wp-login.php
  *
- * @since 0.0.1
+ * @since 1.0.0
  */
-add_filter( 'wp_signup_location', function ( $url ) {
+add_filter('wp_signup_location', function ($url) {
+    $url = site_url('wp-login.php');
 
-	$url = site_url( 'wp-login.php' );
-
-	return $url;
-} );
+    return $url;
+});
 
 /**
  * Redirect to the login page if the request action is different than login or logout
  * or in case the current page is wp-signup.php
  *
- * @since 0.0.1
+ * @since 1.0.0
  */
-function gs_login_redirect() {
+function gs_login_redirect()
+{
+    global $pagenow;
 
-	global $pagenow;
+    $_url = site_url('wp-login.php');
 
-	$_url = site_url( 'wp-login.php' );
-
-	if ( 'wp-signup.php' == $pagenow ) {
-		wp_redirect( $_url );
-		exit;
-	} else if ( isset( $_REQUEST['action'] ) && 'login' !== $_REQUEST['action'] && 'logout' !== $_REQUEST['action'] ) {
-		wp_redirect( site_url( 'wp-login.php' ) );
-		exit;
-	}
+    if ('wp-signup.php' === $pagenow) {
+        wp_redirect($_url);
+        exit;
+    } elseif (isset($_REQUEST['action']) && 'login' !== $_REQUEST['action'] && 'logout' !== $_REQUEST['action']) {
+        wp_redirect(site_url('wp-login.php'));
+        exit;
+    }
 }

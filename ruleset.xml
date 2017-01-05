@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<ruleset name="WordPress PSR and PHPCompatibility">
+    <description>Best practices beyond core WordPress Coding Standards and PSR</description>
+
+    <rule ref="PSR2"/>
+
+    <rule ref="Generic.PHP.DeprecatedFunctions"/>
+    <rule ref="Generic.PHP.ForbiddenFunctions"/>
+    <rule ref="Generic.Functions.CallTimePassByReference"/>
+    <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
+    <rule ref="Generic.CodeAnalysis.EmptyStatement"/>
+    <rule ref="Generic.CodeAnalysis.ForLoopShouldBeWhileLoop"/>
+    <rule ref="Generic.CodeAnalysis.ForLoopWithTestFunctionCall"/>
+    <rule ref="Generic.CodeAnalysis.JumbledIncrementer"/>
+    <rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>
+    <rule ref="Generic.CodeAnalysis.UnnecessaryFinalModifier"/>
+    <rule ref="Generic.CodeAnalysis.UselessOverridingMethod"/>
+    <rule ref="Generic.Classes.DuplicateClassName"/>
+    <rule ref="Generic.Strings.UnnecessaryStringConcat"/>
+    <rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
+
+    <rule ref="WordPress.PHP.DiscouragedFunctions"/>
+    <rule ref="WordPress.PHP.POSIXFunctions"/>
+    <rule ref="WordPress.PHP.StrictComparisons"/>
+
+    <!-- http://make.wordpress.org/core/handbook/coding-standards/php/#remove-trailing-spaces -->
+    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace"/>
+
+    <rule ref="WordPress.Functions.DontExtract"/>
+    <rule ref="WordPress.NamingConventions.ValidHookName"/>
+    <rule ref="WordPress.XSS.EscapeOutput"/>
+    <rule ref="WordPress.CSRF.NonceVerification"/>
+    <rule ref="WordPress.WP.PreparedSQL"/>
+    <rule ref="WordPress.Variables.GlobalVariables"/>
+    <rule ref="WordPress.WP.EnqueuedResources"/>
+    <rule ref="WordPress.WP.I18n"/>
+    <!-- https://vip.wordpress.com/documentation/code-review-what-we-look-for/#using-in_array-without-strict-parameter -->
+    <rule ref="WordPress.PHP.StrictInArray"/>
+
+    <rule ref="Squiz.Commenting.BlockComment" />
+    <rule ref="Squiz.Commenting.DocCommentAlignment" />
+    <rule ref="Squiz.Commenting.EmptyCatchComment" />
+    <rule ref="Squiz.Commenting.InlineComment" />
+    <rule ref="Squiz.Commenting.LongConditionClosingComment" />
+    <rule ref="Squiz.Commenting.PostStatementComment" />
+
+    <!-- Run against the PHPCompatibility ruleset -->
+    <rule ref="PHPCompatibility"/>
+    <config name="testVersion" value="5.4"/>
+</ruleset>
