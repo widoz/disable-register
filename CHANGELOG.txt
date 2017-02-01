@@ -1,7 +1,10 @@
 = 1.0.1 - Feb 01, 2017 =
 Allow postpass action for posts protected by a password
 
-= 1.0.0 - Oct 18, 2015 =
+= 1.0.0 - Jan 06, 2017 =
+Bump version
+
+= 0.0.4 - Oct 18, 2015 =
 Remove wrong action hook to plugins_loaded, create many issues
 Update Readme
 Update .gitignore
