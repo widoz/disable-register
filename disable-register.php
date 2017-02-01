@@ -102,7 +102,12 @@ function gs_login_redirect()
     if ('wp-signup.php' === $pagenow) {
         wp_redirect($_url);
         exit;
-    } elseif (isset($_REQUEST['action']) && 'login' !== $_REQUEST['action'] && 'logout' !== $_REQUEST['action']) {
+    } elseif (
+        isset($_REQUEST['action']) &&
+        'login' !== $_REQUEST['action'] &&
+        'logout' !== $_REQUEST['action'] &&
+        'postpass' !== $_REQUEST['action']
+    ) {
         wp_redirect(site_url('wp-login.php'));
         exit;
     }
