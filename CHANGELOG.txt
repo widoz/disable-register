@@ -1,3 +1,6 @@
+= 2.0.0 - May 04, 2019 =
+Complete Refactor
+
 = 1.0.1 - Feb 01, 2017 =
 Allow postpass action for posts protected by a password
 
