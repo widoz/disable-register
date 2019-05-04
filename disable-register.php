@@ -25,17 +25,87 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-(function () {
-    $autoloaderFile = __DIR__ . '/vendor/autoload.php';
+// phpcs:disable
 
-    // Add other stuffs about php version etc...
+namespace Widoz\DisableRegister;
 
-    if (!file_exists($autoloaderFile)) {
-        // TODO Show Message in admin.
+use function class_exists;
+
+$bootstrap = \Closure::bind(function () {
+    /**
+     * @param string $message
+     * @param string $noticeType
+     * @param array $allowedMarkup
+     */
+    function adminNotice($message, $noticeType, array $allowedMarkup = [])
+    {
+        \assert(\is_string($message) && \is_string($noticeType));
+        add_action(
+            'admin_notices',
+            function () use ($message, $noticeType, $allowedMarkup) {
+                ?>
+                <div class="notice notice-<?= esc_attr($noticeType) ?>">
+                    <p><?= wp_kses($message, $allowedMarkup) ?></p>
+                </div>
+                <?php
+            }
+        );
     }
 
-    require_once $autoloaderFile;
+    /**
+     * @return bool
+     */
+    function autoload()
+    {
+        if (class_exists(Bootstrapper::class)) {
+            return true;
+        }
+        $autoloader = plugin_dir_path(__FILE__) . '/vendor/autoload.php';
+        if (!file_exists($autoloader)) {
+            return false;
+        }
+        /** @noinspection PhpIncludeInspection */
+        require_once $autoloader;
+        return true;
+    }
 
-    $bootstrap = new \Widoz\DisableRegister\Bootstrapper(__FILE__);
+    /**
+     * Compare PHP Version with our minimum.
+     *
+     * @return bool
+     */
+    function isPhpVersionCompatible()
+    {
+        return PHP_VERSION_ID >= 70100;
+    }
+
+    if (!isPhpVersionCompatible()) {
+        adminNotice(
+            sprintf(
+            // Translators: %s is the PHP version of the current installation, where is the plugin is active.
+                __(
+                    'Disable Register require php version 7.1 at least. Your\'s is %s',
+                    'disable-register'
+                ),
+                PHP_VERSION
+            ),
+            'error'
+        );
+        return;
+    }
+    if (!autoload()) {
+        adminNotice(
+            __(
+                'No suitable autoloader found. Disable Register cannot be loaded correctly.',
+                'disable-register'
+            ),
+            'error'
+        );
+        return;
+    }
+
+    $bootstrap = new Bootstrapper(__FILE__);
     $bootstrap->run();
-})();
+}, null);
+
+$bootstrap();
