@@ -1,9 +1,10 @@
 === Plugin Name ===
 Contributors: wido
 Tags: register, login, disable
-Requires at least: 4.5
-Tested up to: 4.7
-Stable tag: 1.0.0
+Requires at least: 5.1
+Requires PHP: 7.1
+Tested up to: 5.1.1
+Stable tag: 2.0.0
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,6 +34,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+
+= 2.0.0 =
+Complete Refactor
 
 = 1.0.0 =
 Initial Release

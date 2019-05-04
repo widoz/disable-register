@@ -3,7 +3,7 @@
  * Plugin Name: Disable Register
  * Plugin URI: https://wordpress.org/plugins/disable-register
  * Description: Disable Register
- * Version: 1.0.1
+ * Version: 2.0.0
  * Author: Guido Scialfa
  * Author URI: http://www.guidoscialfa.com
  * Text Domain: disable-register
