@@ -25,90 +25,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-add_filter('wpmu_active_signup', 'gs_disable_registration');
-add_filter('site_option_registration', 'gs_disable_registration');
+(function () {
+    $autoloaderFile = __DIR__ . '/vendor/autoload.php';
 
-add_action('login_init', 'gs_login_redirect');
+    // Add other stuffs about php version etc...
 
-// Disable the user register option.
-// @todo Save the current theme option and restore it on plugin remove.
-update_option('users_can_register', 0);
-
-// Clean resetpass action.
-if (isset($_GET['key'])) {
-    $action = 'login';
-}
-
-/**
- * Disable register option
- *
- * @since 1.0.0
- */
-function gs_disable_registration($status)
-{
-    $status = 'none';
-
-    return $status;
-}
-
-// @todo Check why the style is not enqueue in head tag
-add_action('login_enqueue_scripts', function () {
-    wp_enqueue_style('gs-disable-register', plugin_dir_url(__FILE__) . 'assets/css/login.css', false);
-});
-
-/**
- * Don't shake for errors
- *
- * @since 1.0.0
- */
-add_filter('shake_error_codes', function () {
-    return [];
-});
-
-/**
- * Disable error messages
- *
- * @since 1.0.0
- */
-add_filter('login_errors', function ($errors) {
-    $errors = '';
-
-    return $errors;
-});
-
-/**
- * Set the sign up location to wp-login.php
- *
- * @since 1.0.0
- */
-add_filter('wp_signup_location', function ($url) {
-    $url = site_url('wp-login.php');
-
-    return $url;
-});
-
-/**
- * Redirect to the login page if the request action is different than login or logout
- * or in case the current page is wp-signup.php
- *
- * @since 1.0.0
- */
-function gs_login_redirect()
-{
-    global $pagenow;
-
-    $_url = site_url('wp-login.php');
-
-    if ('wp-signup.php' === $pagenow) {
-        wp_redirect($_url);
-        exit;
-    } elseif (
-        isset($_REQUEST['action']) &&
-        'login' !== $_REQUEST['action'] &&
-        'logout' !== $_REQUEST['action'] &&
-        'postpass' !== $_REQUEST['action']
-    ) {
-        wp_redirect(site_url('wp-login.php'));
-        exit;
+    if (!file_exists($autoloaderFile)) {
+        // TODO Show Message in admin.
     }
-}
+
+    require_once $autoloaderFile;
+
+    $bootstrap = new \Widoz\DisableRegister\Bootstrapper(__FILE__);
+    $bootstrap->run();
+})();

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<ruleset name="DisableRegister">
+    <description>WordPress Disable Register</description>
+
+    <config name="testVersion" value="7.1"/>
+    <config name="ignore_warnings_on_exit" value="1"/>
+    <config name="text_domain" value="disable-register"/>
+
+    <file>./src</file>
+    <exclude-pattern>tests/*</exclude-pattern>
+
+    <rule ref="Inpsyde"/>
+</ruleset>

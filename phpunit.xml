@@ -1,0 +1,28 @@
+<phpunit
+        bootstrap="./tests/php/bootstrap.php.dist"
+        colors="true"
+        beStrictAboutOutputDuringTests="true"
+        beStrictAboutChangesToGlobalState="true"
+        backupGlobals="true"
+        backupStaticAttributes="true"
+        processIsolation="true"
+        stopOnError="false"
+        stopOnFailure="false">
+    <testsuites>
+        <testsuite name="Test">
+            <directory suffix="Test.php">./tests/Unit/</directory>
+            <directory suffix="Test.php">./tests/Functional/</directory>
+            <directory suffix="Test.php">./tests/Integration/</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./src/</directory>
+            <file>./</file>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="coverage-clover" target="coverage/report/clover.xml"/>
+        <log type="coverage-html" target="coverage/report/html" lowUpperBound="35" highLowerBound="70"/>
+    </logging>
+</phpunit>

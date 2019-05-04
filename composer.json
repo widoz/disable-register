@@ -1,0 +1,34 @@
+{
+  "name": "widoz/disable-register",
+  "description": "Disable Registration in WordPress",
+  "type": "wordpress-plugin",
+  "license": "GPLv2",
+  "authors": [
+    {
+      "name": "Guido Scialfa",
+      "email": "dev@guidoscialfa.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": ">=7.1"
+  },
+  "require-dev": {
+    "brain/monkey": "^2.2",
+    "vimeo/psalm": "^3.0@dev",
+    "widoz/project-tests-helper": "^1.0@dev",
+    "inpsyde/php-coding-standards": "^0.13.4",
+    "phpunit/phpunit": "^7"
+  },
+  "autoload": {
+    "psr-4": {
+      "Widoz\\DisableRegister\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Widoz\\DisableRegisterTests\\": "tests/php"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+language: php
+php:
+    - '7.1'
+    - '7.2'
+    - '7.3'
+    - nightly
+install:
+    composer install
+
+script:
+    - ./vendor/psalm
+    - ./vendor/bin/phpunit --testdox --coverage-clover=coverage/report/coverage.xml
+    - ./vendor/bin/phpcs --runtime-set testVersion 7.1
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
