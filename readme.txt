@@ -1,10 +1,10 @@
-=== Plugin Name ===
+=== Disable Register ===
 Contributors: wido
 Tags: register, login, disable
 Requires at least: 5.1
 Requires PHP: 7.1
 Tested up to: 5.1.1
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,8 +35,11 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Changelog ==
 
+= 2.0.1 =
+* Fix: Compatibility with WordPress not allowing php 7.1 in the repo because of a commit pre-hook
+
 = 2.0.0 =
-Complete Refactor
+* Complete Refactor
 
 = 1.0.0 =
-Initial Release
+* Initial Release
