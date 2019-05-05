@@ -2,7 +2,7 @@
 <ruleset name="DisableRegister">
     <description>WordPress Disable Register</description>
 
-    <config name="testVersion" value="7.1"/>
+    <config name="testVersion" value="7.0"/>
     <config name="ignore_warnings_on_exit" value="1"/>
     <config name="text_domain" value="disable-register"/>
 
@@ -10,4 +10,5 @@
     <exclude-pattern>tests/*</exclude-pattern>
 
     <rule ref="Inpsyde"/>
+    <rule ref="PHPCompatibility"/>
 </ruleset>

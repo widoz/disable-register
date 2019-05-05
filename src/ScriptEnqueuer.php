@@ -47,7 +47,7 @@ class ScriptEnqueuer
      *
      * @return void
      */
-    final public function enqueue(): void
+    final public function enqueue()
     {
         $pluginDirUrl = rtrim($this->pluginDirUrl, '/');
         wp_enqueue_style(

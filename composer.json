@@ -30,5 +30,10 @@
     "psr-4": {
       "Widoz\\DisableRegisterTests\\": "tests/php"
     }
+  },
+  "config": {
+    "platform": {
+      "php": "7.1"
+    }
   }
 }

@@ -22,9 +22,9 @@ use InvalidArgumentException;
  */
 class RegisterDisabler
 {
-    private const REGISTRATION_STATUS = 'none';
-    private const VALID_LOGIN_ACTION = 'login';
-    private const VALID_ACTIONS = [
+    const REGISTRATION_STATUS = 'none';
+    const VALID_LOGIN_ACTION = 'login';
+    const VALID_ACTIONS = [
         'login',
         'logout',
         'postpass',
@@ -105,8 +105,10 @@ class RegisterDisabler
      *
      * @param string $currentPage
      * @param string $action
+     *
+     * @return void
      */
-    final public function maybeRedirectToLoginPage(string $currentPage, string $action): void
+    final public function maybeRedirectToLoginPage(string $currentPage, string $action)
     {
         if (!$currentPage || !$action) {
             return;
@@ -120,8 +122,10 @@ class RegisterDisabler
 
     /**
      * Disable Registration
+     *
+     * @return void
      */
-    final public function disableRegistration(): void
+    final public function disableRegistration()
     {
         $option = get_site_option('users_can_register', 0);
         $option and update_site_option('users_can_register', 0);
@@ -130,9 +134,9 @@ class RegisterDisabler
     /**
      * Do Exit
      *
-     * @internal
+     * @return void
      */
-    protected function doExit(): void
+    protected function doExit()
     {
         exit;
     }

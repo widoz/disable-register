@@ -38,7 +38,7 @@ class RedirectToLoginPage
      *
      * @return void
      */
-    final public function redirectToLoginPage(): void
+    final public function redirectToLoginPage()
     {
         global $pagenow;
 

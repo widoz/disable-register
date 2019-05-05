@@ -45,7 +45,7 @@ class Bootstrapper
      * @return void
      * @throws InvalidArgumentException
      */
-    final public function run(): void
+    final public function run()
     {
         $loginPageUrl = site_url('wp-login.php');
         $pluginDirUrl = plugin_dir_url($this->pluginFilePath);
