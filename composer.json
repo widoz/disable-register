@@ -17,7 +17,7 @@
   "require-dev": {
     "brain/monkey": "^2.2",
     "vimeo/psalm": "^3.0@dev",
-    "widoz/project-tests-helper": "^1.0@dev",
+    "widoz/project-tests-helper": "dev-phpunit-7",
     "inpsyde/php-coding-standards": "^0.13.4",
     "phpunit/phpunit": "^7"
   },

@@ -40,7 +40,7 @@ class RegisterDisabler
      * @param string $loginPageUrl
      * @throws InvalidArgumentException
      */
-    final public function __construct(string $loginPageUrl)
+    public function __construct(string $loginPageUrl)
     {
         $loginPageUrl = filter_var($loginPageUrl, FILTER_VALIDATE_URL);
         if (!$loginPageUrl) {
@@ -55,7 +55,7 @@ class RegisterDisabler
      *
      * @return string Always 'none'
      */
-    final public function validRegistrationStatus(): string
+    public function validRegistrationStatus(): string
     {
         return self::REGISTRATION_STATUS;
     }
@@ -65,7 +65,7 @@ class RegisterDisabler
      *
      * @return string
      */
-    final public function validAction(): string
+    public function validAction(): string
     {
         return self::VALID_LOGIN_ACTION;
     }
@@ -75,7 +75,7 @@ class RegisterDisabler
      *
      * @return array
      */
-    final public function disableShakeErrorCodes(): array
+    public function disableShakeErrorCodes(): array
     {
         return [];
     }
@@ -85,7 +85,7 @@ class RegisterDisabler
      *
      * @return string
      */
-    final public function hideLoginErrorMessages(): string
+    public function hideLoginErrorMessages(): string
     {
         return '';
     }
@@ -95,7 +95,7 @@ class RegisterDisabler
      *
      * @return string
      */
-    final public function loginPageUrl(): string
+    public function loginPageUrl(): string
     {
         return $this->loginPageUrl;
     }
@@ -108,7 +108,7 @@ class RegisterDisabler
      *
      * @return void
      */
-    final public function maybeRedirectToLoginPage(string $currentPage, string $action)
+    public function maybeRedirectToLoginPage(string $currentPage, string $action)
     {
         if (!$currentPage || !$action) {
             return;
@@ -125,7 +125,7 @@ class RegisterDisabler
      *
      * @return void
      */
-    final public function disableRegistration()
+    public function disableRegistration()
     {
         $option = get_site_option('users_can_register', 0);
         $option and update_site_option('users_can_register', 0);

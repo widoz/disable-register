@@ -38,12 +38,12 @@ class RedirectToLoginPage
      *
      * @return void
      */
-    final public function redirectToLoginPage()
+    public function redirectToLoginPage()
     {
         global $pagenow;
 
         // phpcs:disable
-        $action = (string)filter_var($_REQUEST['action'], FILTER_SANITIZE_STRING);
+        $action = (string)filter_var($_REQUEST['action'] ?? '', FILTER_SANITIZE_STRING);
         // phpcs:enable
         $key = (string)filter_input(INPUT_GET, 'key', FILTER_SANITIZE_STRING);
         // Because WordPress set the action to `resetpass` when `key` is provided.

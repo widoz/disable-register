@@ -59,4 +59,60 @@ class RedirectToLoginPageTest extends TestCase
 
         $testee->redirectToLoginPage();
     }
+
+    public function testInvalidActionGetPassedEvenIfActionNotInRequest()
+    {
+        global $pagenow;
+
+        $pagenow = 'pageNow';
+        $_REQUEST = [];
+
+        $disableRegistration = $this->createMock(RegisterDisabler::class);
+        $testee = new Testee($disableRegistration);
+
+        $disableRegistration
+            ->expects($this->once())
+            ->method('maybeRedirectToLoginPage')
+            ->with($pagenow, 'invalid_action');
+
+        Functions\expect('filter_var')
+            ->once()
+            ->with('', FILTER_SANITIZE_STRING)
+            ->andReturn('');
+
+        Functions\expect('filter_input')
+            ->once()
+            ->with(INPUT_GET, 'key', FILTER_SANITIZE_STRING)
+            ->andReturn('has key');
+
+        $testee->redirectToLoginPage();
+    }
+
+    public function testEmptyActionGetPassedIfNoKeyInRequest()
+    {
+        global $pagenow;
+
+        $pagenow = 'pageNow';
+        $_REQUEST = [];
+
+        $disableRegistration = $this->createMock(RegisterDisabler::class);
+        $testee = new Testee($disableRegistration);
+
+        $disableRegistration
+            ->expects($this->once())
+            ->method('maybeRedirectToLoginPage')
+            ->with($pagenow, '');
+
+        Functions\expect('filter_var')
+            ->once()
+            ->with('', FILTER_SANITIZE_STRING)
+            ->andReturn('');
+
+        Functions\expect('filter_input')
+            ->once()
+            ->with(INPUT_GET, 'key', FILTER_SANITIZE_STRING)
+            ->andReturn('');
+
+        $testee->redirectToLoginPage();
+    }
 }
